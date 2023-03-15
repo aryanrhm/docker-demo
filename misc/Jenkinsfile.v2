@@ -1,5 +1,4 @@
 pipeline {
-    def commit_id
     agent any
     stages {
         stage('test') {
