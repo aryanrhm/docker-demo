@@ -6,9 +6,10 @@ node {
      commit_id = readFile('.git/commit-id').trim()
    }
    stage('test') {
-     def myTestContainer = docker.image('node:16').run("-u root")
+     def myTestContainer = docker.image('node:16')
      myTestContainer.pull()
      myTestContainer.inside { 
+       sh 'export npm_config_cache=/var/lib/jenkins/workspace/nodejs-pipeline-v2/.npm'
        sh 'npm config set '
        sh 'npm install --only=dev'
        sh 'npm test'
