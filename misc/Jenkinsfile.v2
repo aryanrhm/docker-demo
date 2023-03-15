@@ -26,10 +26,7 @@ pipeline {
             }
             post{
                 failure{
-                    emailext to: "ary.rahimi@gmail.com",
-                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
-                }
+                    slacksend (color: '#FF0000', message: "FAILED: job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")                }
             }
         }
         stage('build and push') {
