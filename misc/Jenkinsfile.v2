@@ -9,8 +9,7 @@ node {
      def myTestContainer = docker.image('node:16')
      myTestContainer.pull()
      myTestContainer.inside { 
-       sh 'export npm_config_cache=/var/lib/jenkins/workspace/nodejs-pipeline-v2/.npm'
-       sh 'env'
+       sh 'npm config set cache /var/lib/jenkins/workspace/nodejs-pipeline-v2/.npm'
        sh 'npm install --only=dev'
        sh 'npm test'
      }
