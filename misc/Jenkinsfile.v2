@@ -1,4 +1,7 @@
 pipeline {
+    script {
+        def commit_id
+    }
     environment {
         NPM_CONFIG_CACHE = "${WORKSPACE}@2/.npm"
     }
