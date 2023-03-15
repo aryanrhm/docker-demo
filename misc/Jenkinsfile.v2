@@ -2,7 +2,7 @@ pipeline {
     def commit_id
     agent any
     stages {
-        stage('test') {
+        stage('prepare') {
             steps {
               checkout scm
               sh "git rev-parse --short HEAD > .git/commit-id"
