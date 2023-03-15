@@ -10,7 +10,7 @@ node {
      myTestContainer.pull()
      myTestContainer.inside { 
        sh 'npm config set cache /var/lib/jenkins/workspace/nodejs-pipeline-v2/.npm'
-       sh 'npm config set userconfig /var/lib/jenkins/workspace/nodejs-pipeline-v2/.npmrc'
+       sh 'npm config ls -l'
        sh 'npm install --only=dev'
        sh 'npm test'
      }
