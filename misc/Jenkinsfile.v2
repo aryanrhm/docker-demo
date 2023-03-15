@@ -1,29 +1,24 @@
-node {
-   def commit_id
-   stage('Preparation') {
-     checkout scm
-     sh "git rev-parse --short HEAD > .git/commit-id"
-     commit_id = readFile('.git/commit-id').trim()
-   }
-   stage('test') {
-     def myTestContainer = docker.image('node:16-new')
-     myTestContainer.inside { 
-       sh 'npm install --only=dev --unsafe-perm=true --allow-root'
-       sh 'npm test'
-     }
-   }
-   stage('test with a DB') {
-     def mysql = docker.image('mysql').run("-e MYSQL_ALLOW_EMPTY_PASSWORD=yes") 
-     def myTestContainer = docker.image('node:16-new')
-     myTestContainer.inside("--link ${mysql.id}:mysql") { // using linking, mysql will be available at host: mysql, port: 3306
-          sh 'npm install --only=dev' 
-          sh 'npm test'                     
-     }                                   
-     mysql.stop()
-   }                                     
-   stage('docker build/push') {            
-     docker.withRegistry('', 'docker-hub') {
-       def app = docker.build("aryanrhm/docker-nodejs-demo:${commit_id}", '.').push()
-     }                                     
-   }                                       
-}                                          
+pipeline {
+    def commit_id
+    agent any
+    stages {
+        stage('test') {
+            steps {
+              checkout scm
+              sh "git rev-parse --short HEAD > .git/commit-id"
+              commit_id = readFile('.git/commit-id').trim()
+            }
+        }
+        stage('test') {
+            agent {
+                docker {
+                    image 'node:16'
+                }
+            }
+            steps {
+                sh 'npm install --only=dev'
+                sh 'npm test'
+            }
+        }
+    }
+}
