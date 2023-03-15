@@ -21,8 +21,15 @@ pipeline {
                 }
             }
             steps {
-                sh 'npm install --only=dev'
+                sh 'npm installwdadw  --only=dev'
                 sh 'npm test'
+            }
+            post{
+                failure{
+                    emailext to: "ary.rahimi@gmail.com",
+                    subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
+                    body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
+                }
             }
         }
         stage('build and push') {
