@@ -1,8 +1,6 @@
+def commit_id
 pipeline {
     environment {
-        script {
-            def commit_id
-        }
         NPM_CONFIG_CACHE = "${WORKSPACE}@2/.npm"
     }
     agent any
