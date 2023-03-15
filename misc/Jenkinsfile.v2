@@ -22,7 +22,7 @@ node {
      mysql.stop()
    }                                     
    stage('docker build/push') {            
-     docker.withRegistry('https://index.docker.io/v2/', 'docker-hub') {
+     docker.withRegistry('', 'docker-hub') {
        def app = docker.build("aryanrhm/docker-nodejs-demo:${commit_id}", '.').push()
      }                                     
    }                                       
