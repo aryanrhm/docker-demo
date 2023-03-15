@@ -15,5 +15,14 @@ pipeline {
                 sh 'npm test'
             }
         }
+        stage('build and push') {
+            steps {
+                script {
+                    docker.withRegistry('', 'docker-hub') {
+                    def app = docker.build("aryanrhm/docker-nodejs-demo:${BUILD_NUMBER}", '.').push()
+                    }   
+                }
+            }
+       }
     }
 }
