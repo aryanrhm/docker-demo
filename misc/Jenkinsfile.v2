@@ -9,7 +9,7 @@ node {
      def myTestContainer = docker.image('node:16')
      myTestContainer.pull()
      myTestContainer.inside { 
-       sh 'npm config --global set prefix "/var/lib/jenkins/workspace/nodejs-pipeline-v2/.npmrc"
+       sh 'npm config --global set prefix "/var/lib/jenkins/workspace/nodejs-pipeline-v2/.npmrc"'
        sh 'npm config --global set cache "/var/lib/jenkins/workspace/nodejs-pipeline-v2/.npm"'
        sh 'npm install --only=dev'
        sh 'npm test'
