@@ -10,6 +10,7 @@ node {
      myTestContainer.pull()
      myTestContainer.inside { 
        sh 'export npm_config_cache=/var/lib/jenkins/workspace/nodejs-pipeline-v2/.npm'
+       sh 'env'
        sh 'npm install --only=dev'
        sh 'npm test'
      }
