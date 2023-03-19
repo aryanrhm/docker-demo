@@ -33,7 +33,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('', 'docker-hub') {
-                    def app = docker.build("aryanrhm/docker-nodejs-demo:${commit_id}", '.').push()
+                    def app = docker.build("aryanrhm/nodejs-app:${commit_id}", '.').push()
                     }   
                 }
             }
