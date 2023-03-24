@@ -21,7 +21,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'npm installwdadw  --only=dev'
+                sh 'npm install  --only=dev'
                 sh 'npm test'
             }
             post{
